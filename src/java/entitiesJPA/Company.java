@@ -7,6 +7,7 @@ package entitiesJPA;
 
 import java.io.Serializable;
 import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,8 +38,10 @@ public class Company implements Serializable {
    
     private String name;
     private String cif;
-    @OneToMany(mappedBy="company")
+    
+    @OneToMany(mappedBy="company",cascade=CascadeType.ALL)
     private Collection<User> users;
+    
     @ManyToMany
     @JoinColumn(name="companies")
     private Collection <Department> departments;

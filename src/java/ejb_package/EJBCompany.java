@@ -52,9 +52,9 @@ public class EJBCompany implements EJBCompanyInterface {
     }
 
     @Override
-    public void deleteCompany(Company company) throws DeleteException {
+    public void deleteCompany(int id) throws DeleteException {
         try {
-            em.remove(em.find(Company.class, company.getId()));
+            em.remove(em.find(Company.class, id));
         } catch (Exception ex) {
             throw new DeleteException(ex.getMessage());
         }
