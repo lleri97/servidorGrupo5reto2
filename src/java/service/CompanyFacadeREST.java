@@ -30,7 +30,7 @@ import java.util.logging.Level;
 
 /**
  *
- * @author 2dam
+ * @author Ruben
  */
 @Path("company")
 public class CompanyFacadeREST {

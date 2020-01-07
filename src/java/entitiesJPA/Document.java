@@ -12,8 +12,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.validation.constraints.Past;
@@ -25,7 +27,9 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Francisco Romero Alonso
  */
 @Entity
-@Table(name="document",schema="grupo5_database")
+@Table(name = "document", schema = "grupo5_database")
+@NamedQuery(name="findAllDocuments",
+        query="SELECT a FROM Document a ORDER by a.id")
 @XmlRootElement
 public class Document implements Serializable {
 
@@ -35,23 +39,24 @@ public class Document implements Serializable {
     private int id;
 
     private String name;
-    
+
     private String description;
-    
+
     @ManyToOne
+    @JoinColumn(name = "user_id", nullable = true)
     private User user;
-    
+
     @ManyToMany(mappedBy = "documents")
-    private Collection <Area> areas;
-    
+    private Collection<Area> areas;
+
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     @Past
     private Date uploadDate;
-    
+
     private Boolean visibility;
-    
+
     private Byte[] documentContent;
-    
+
     private DocumentStatus status;
 
     public Document() {
@@ -113,13 +118,21 @@ public class Document implements Serializable {
     public void setDocumentContent(Byte[] documentContent) {
         this.documentContent = documentContent;
     }
-    
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+    
+    public DocumentStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(DocumentStatus status) {
+        this.status = status;
     }
 
     @Override
@@ -146,5 +159,5 @@ public class Document implements Serializable {
     public String toString() {
         return "entitiesJPA.Document[ id=" + id + " ]";
     }
-    
+
 }

@@ -8,6 +8,7 @@ package entitiesJPA;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -95,7 +96,7 @@ public class User implements Serializable {
     @JoinColumn(name="company_id",nullable=false)
     private Company company;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy="user",cascade=CascadeType.ALL)
     private Collection<Document> documents;
 
     /**

@@ -5,45 +5,40 @@
  */
 package ejb_package;
 
-import entitiesJPA.Company;
-import entitiesJPA.User;
+import entitiesJPA.Department;
+import entitiesJPA.Document;
 import exceptions.CreateException;
 import exceptions.DeleteException;
 import exceptions.GetCollectionException;
-import exceptions.SelectException;
 import exceptions.UpdateException;
-import interfaces.EJBCompanyInterface;
+import java.util.Collection;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import static javax.ws.rs.client.Entity.entity;
+import interfaces.EJBDocumentInterface;
 
 /**
  *
- * @author Ruben
+ * @author stone
  */
 @Stateless
-public class EJBCompany implements EJBCompanyInterface {
+public class EJBDocument implements EJBDocumentInterface {
 
     @PersistenceContext(unitName = "grupo5_ServerPU")
     private EntityManager em;
 
-    @Override
-    public void createCompany(Company company) throws CreateException {
+    public void createNewDocument(Document document) throws CreateException {
         try {
-            em.persist(company);
+            em.persist(document);
         } catch (Exception ex) {
             throw new CreateException(ex.getMessage());
         }
     }
 
-    @Override
-    public void updateCompany(Company company) throws UpdateException {
-
+    public void updateDocument(Document document) throws UpdateException {
         try {
-            em.merge(company);
+            em.merge(document);
             em.flush();// actualiza al momento base de datos
 
         } catch (Exception ex) {
@@ -51,30 +46,19 @@ public class EJBCompany implements EJBCompanyInterface {
         }
     }
 
-    @Override
-    public void deleteCompany(int id) throws DeleteException {
+    public void deleteDocument(int id) throws DeleteException {
         try {
-            em.remove(em.find(Company.class, id));
+            em.remove(em.find(Document.class, id));
         } catch (Exception ex) {
             throw new DeleteException(ex.getMessage());
         }
     }
 
-    @Override
-    public List<Company> getCompanyList() throws GetCollectionException {
+    public Collection<Document> getDocumentList() throws GetCollectionException {
         try {
-            return em.createNamedQuery("findAllCompanies").getResultList();
+            return em.createNamedQuery("findAllDocuments").getResultList();
         } catch (Exception ex) {
             throw new GetCollectionException(ex.getMessage());
-        }
-    }
-
-    @Override
-    public Company getCompanyProfile(int id) throws SelectException {
-        try {
-            return em.find(Company.class, id);
-        } catch (Exception ex) {
-            throw new SelectException(ex.getMessage());
         }
     }
 }
