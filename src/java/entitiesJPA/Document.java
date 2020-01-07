@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -134,7 +135,7 @@ public class Document implements Serializable {
     public void setStatus(DocumentStatus status) {
         this.status = status;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;

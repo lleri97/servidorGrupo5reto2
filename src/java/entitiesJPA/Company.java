@@ -136,5 +136,6 @@ public class Company implements Serializable {
     public void setDepartments(Collection <Department> departments) {
         this.departments = departments;
     }
+ 
     
 }
